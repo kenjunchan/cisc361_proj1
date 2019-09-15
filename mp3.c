@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include "mp3.h"
 #include <string.h>
+#include "mp3.h"
 #include <stdlib.h>
 typedef struct mp3 {
 	char *name;
@@ -54,11 +53,19 @@ int main(){
 	b[2] = 'f';
 	char n[3] = {'a','b','c'};
 	char t[3] = {'d','e','f'};
+	struct mp3 t1 = (struct mp3*)malloc(sizeof(struct mp3));
+	t1->name = a;
+	t1->title = b;
+	t1->year = 2019;
+	t1->runtime = 500;
+	t1->next = NULL;
+	t1->prev = NULL;
 	struct mp3 mp1 = {a,b,2019,500,NULL,NULL};
 	struct mp3 mp2 = {t, n, 2020, 100, NULL, &mp1};
-	mp1.next = &mp2;
-	printMp3(mp1);
-	printf(mp1.name,mp1.title,mp1.year,mp1.runtime);
+	printMp3(t1);
+	//mp1.next = &mp2;
+	//printMp3(mp1);
+	//printf(mp1.name,mp1.title,mp1.year,mp1.runtime);
 	return 0;
 }
 	
