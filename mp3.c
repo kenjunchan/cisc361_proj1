@@ -53,12 +53,13 @@ mp3* createMp3(char* n, char* t, int y, int rt, mp3* nxt, mp3* prv){
 }	
 
 mp3* createMp3FromInput(){
+	printf("nkmvvnbmnvnb \n");
 	char* name = (char*)malloc(sizeof(char));
 	char* title = (char*)malloc(sizeof(char));
 	//int* year = (int*)malloc(sizeof(int));
 	//int* runtime = malloc(sizeof(int));;
-	int year;
-	int runtime;
+	int year = malloc(sizeof(int));
+	int runtime = malloc(sizeof(int));
 	mp3* next = NULL;
 	mp3* prev = NULL;
 	printf("Please enter Song Name \n");
@@ -71,11 +72,12 @@ mp3* createMp3FromInput(){
 	printf("Plese enter Song Runtime \n");
 	//fgets(runtime,256,stdin);
 	scanf("%d", &runtime);
-	return createMp3(name, title, year, runtime, next, prev);
+	return createMp3(strtok(name, "\n"), strtok(title, "\n"), year, runtime, next, prev);
 }
 
 void append(mp3* head, mp3* tail){
 	mp3* new = createMp3FromInput();
+	printf("Sdadasfsafas \n");
 	if(head == NULL && tail == NULL){
 		head = new;
 		tail = new;
@@ -121,7 +123,7 @@ int main(){
 	t1->next = t2;
 	struct mp3 mp1 = {a,b,2019,500,NULL,NULL};
 	struct mp3 mp2 = {t, n, 2020, 100, NULL, &mp1};
-	*/
+	
 	//printMp3List(t1);
 	char* a = (char*)malloc(sizeof(char));
 	a[0] = 'a';
@@ -145,7 +147,36 @@ int main(){
 	//mp1.next = &mp2;
 	//printMp3(mp1);
 	//printf(mp1.name,mp1.title,mp1.year,mp1.runtime);
-	printMp3(createMp3FromInput());
+	*/
+	//printMp3(createMp3FromInput());
+	
+		
+	mp3* head = NULL;
+	mp3* tail = NULL;
+	char* input = (char*)malloc(256*sizeof(char));
+//	input = "a";
+	//	free(input);
+	//while(strcmp(strtok(input,"\n"),"quit")!=0){
+	fgets(input,256,stdin);
+	printf(strtok(input, "\n"));
+	if(strcmp(strtok(input, "\n"), "Add") == 0){
+		printf("Hello World \n");
+	}
+	
+	/*
+	while(input != "quit"){
+		printf("Add, Print \n");
+		fgets(input,256,stdin);
+		printf("Input is %s", input);
+		//printf("dsa %d", strcmp(strtok(input,"\n"), "Add"));
+		if(strcmp(strtok(input,"\n"), "Add") == 0){
+			append(head, tail);
+		}
+		else if(strcmp(strtok(input,"\n"), "Print") == 0){
+			printMp3List(head);
+		}
+	}
+	*/
 	return 0;
 }
 	
