@@ -187,19 +187,22 @@ void deleteProgram(mp3** head, mp3** tail){
 		deleteMp3(current);
 		current = current->next;
   }
+	free(current);
+//	free(head);
+//	free(tail);
 }
 
 int main(){
-	mp3 *head = (mp3*)malloc(sizeof(mp3));
-  mp3 *tail = (mp3*)malloc(sizeof(mp3));
+	mp3 *head = malloc(sizeof(mp3));
+  mp3 *tail = malloc(sizeof(mp3));
   head = NULL;
 	tail = NULL;
-	char* input = (char*)malloc(256*sizeof(char));
-  char* buffer = (char*)malloc(256*sizeof(char));
+	char* input = (char*)malloc(128*sizeof(char));
+  char* buffer = (char*)malloc(128*sizeof(char));
   printHelp();
   do{
     scanf("%s", input);
-    fgets(buffer, 256, stdin);
+    fgets(buffer, 128, stdin) ;
     input = strtok(input,"\n");
     if(strcmp(input, "Add") == 0){
 			append(&head, &tail);
@@ -215,7 +218,7 @@ int main(){
 		}
     else if(strcmp(input, "Delete") == 0){
       printf(">>Enter the Name of the Artist to Delete\n");
-      fgets(input, 256, stdin);
+      fgets(input, 128, stdin);
       deleteMp3FromList(&head, &tail, strtok(input,"\n"));
       printf(">>Mp3(s) Deleted\n");
     }
@@ -227,10 +230,14 @@ int main(){
     }
   }while((strcmp(strtok(input, "\n"), "Exit") != 0));
   deleteProgram(&head,&tail);
-  	free(head);
+  	printf("Freeing Head");
+	free(head);
+	printf("Freeing Tail");
 	free(tail);
+	printf("Freeing input");
 	free(input);
-  free(buffer);
+	printf("Freeing buffer");
+	free(buffer);
 	return 0;
 }
 	
