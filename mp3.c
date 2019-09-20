@@ -88,9 +88,9 @@ mp3* createMp3(char* n, char* t, int y, int rt, mp3* nxt, mp3* prv){
 }	
 
 mp3* createMp3FromInput(){
-	char* name = (char*)malloc(sizeof(char));
-	char* title = (char*)malloc(sizeof(char));
-  char* input = (char*)malloc(sizeof(char));
+	char* name = (char*)malloc(256*sizeof(char));
+	char* title = (char*)malloc(256*sizeof(char));
+  char* input = (char*)malloc(256*sizeof(char));
 	int year = -1;
   int runtime = -1;
   mp3* next = NULL;
@@ -187,8 +187,6 @@ void deleteProgram(mp3** head, mp3** tail){
 		deleteMp3(current);
 		current = current->next;
   }
-  free(head);
-  free(tail);
 }
 
 int main(){
@@ -229,7 +227,9 @@ int main(){
     }
   }while((strcmp(strtok(input, "\n"), "Exit") != 0));
   deleteProgram(&head,&tail);
-  free(input);
+  	free(head);
+	free(tail);
+	free(input);
   free(buffer);
 	return 0;
 }

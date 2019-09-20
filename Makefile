@@ -5,3 +5,7 @@ run: mp3.o
 clean: 
 	rm -f mp3.o
 	rm -f mp3
+
+checkleak : mp3.o
+	valgrind --leak-check=full --show-leak-kinds=all ./mp3.o
+
