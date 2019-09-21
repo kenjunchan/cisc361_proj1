@@ -14,16 +14,16 @@ typedef struct mp3 {
 }mp3;
 
 void printHelp(){
-  printf("LIST OF COMMANDS AND THEIR DESCRIPTION (COMMAND - DESCRIPTION)\n\"Add\" - Adds an Mp3 to the end of the list\n\"PrintB\" - Prints the list from the beginning\n\"PrintE\" - Prints the list from the end\n\"Delete\" - Deletes all Mp3s from the list with the given Artist's name and frees up their memories\n\"Exit\" - Terminates the program and frees up all memory\n-------------------------------------------------------------------------------\n");
+	printf("LIST OF COMMANDS AND THEIR DESCRIPTION (COMMAND - DESCRIPTION)\n\"Add\" - Adds an Mp3 to the end of the list\n\"PrintB\" - Prints the list from the beginning\n\"PrintE\" - Prints the list from the end\n\"Delete\" - Deletes all Mp3s from the list with the given Artist's name and frees up their memories\n\"Exit\" - Terminates the program and frees up all memory\n-------------------------------------------------------------------------------\n");
 }
 
 int isNumber(char* str){
-  for(int i = 0; i< strlen(str); i++){
-    if(!isdigit(str[i])){
-      return 0;
-    }
-  }
-  return 1;
+	for(int i = 0; i< strlen(str); i++){
+    		if(!isdigit(str[i])){
+			return 0;
+    		}
+  	}
+	return 1;
 }
 
 void printMp3(mp3* mp3){
@@ -44,37 +44,37 @@ void printMp3(mp3* mp3){
 	else{
 		printf("No Previous Song \n");
 	}
-  printf("Memory Address of Mp3: %p \n", mp3);
+  	printf("Memory Address of Mp3: %p \n", mp3);
 }
 
 
 
 void printMp3ListFromBeginning(mp3** head){
 	printf(">>Start of List \n");
-  if(*head == NULL){
-    printf(">>Empty list\n");
-  }
-  else{
-	  mp3* current = *head;
-	  while(current != NULL){
-	  	printMp3(current);
-	  	current = current->next;
-	  }
-  }
+  	if(*head == NULL){
+    		printf(">>Empty list\n");
+  	}
+  	else{
+	  	mp3* current = *head;
+	  	while(current != NULL){
+	  		printMp3(current);
+	  		current = current->next;
+	  	}
+  	}
 }
 
 void printMp3ListFromEnd(mp3** tail){
-  printf(">>End of List\n");
-  if(*tail == NULL){
-    printf(">>Empty list\n");
-  }
-  else{
-	  mp3* current = *tail;
-	  while(current != NULL){
-  		printMp3(current);
-	  	current = current->prev;
-	  }
-  }
+	printf(">>End of List\n");
+  	if(*tail == NULL){
+    		printf(">>Empty list\n");
+  	}
+  	else{
+		mp3* current = *tail;
+	  	while(current != NULL){
+  			printMp3(current);
+	  		current = current->prev;
+	  	}
+  	}
 }
 mp3* createMp3(char* n, char* t, int y, int rt, mp3* nxt, mp3* prv){
 	mp3* returnMp3 = (mp3*)malloc(sizeof(mp3));
@@ -90,41 +90,41 @@ mp3* createMp3(char* n, char* t, int y, int rt, mp3* nxt, mp3* prv){
 mp3* createMp3FromInput(){
 	char* name = (char*)malloc(256*sizeof(char));
 	char* title = (char*)malloc(256*sizeof(char));
-  char* input = (char*)malloc(256*sizeof(char));
+  	char* input = (char*)malloc(256*sizeof(char));
 	int year = -1;
-  int runtime = -1;
-  mp3* next = NULL;
+  	int runtime = -1;
+  	mp3* next = NULL;
 	mp3* prev = NULL;
 	printf(">>Please enter Artist's Name\n");
 	fgets(name,256,stdin);
 	printf(">>Please enter Song Title\n");
 	fgets(title,256,stdin);
 	printf(">>Please enter Song Year\n");
-  scanf("%s", input);
-  while(!isNumber(input)){
-    printf(">>Please enter Year as an Integer\n");
-    scanf("%s", input);
-  }
-  year = atoi(input);
+  	scanf("%s", input);
+  	while(!isNumber(input)){
+    		printf(">>Please enter Year as an Integer\n");
+    		scanf("%s", input);
+  	}
+  	year = atoi(input);
 	printf(">>Plese enter Song Runtime\n");
-  scanf("%s", input);
-  while(!isNumber(input)){
-    printf(">>Please enter Runtime as an Integer\n");
-    scanf("%s", input);
-  }
-  runtime = atoi(input);
-  free(input);
+  	scanf("%s", input);
+  	while(!isNumber(input)){
+    		printf(">>Please enter Runtime as an Integer\n");
+    		scanf("%s", input);
+  	}
+  	runtime = atoi(input);
+  	free(input);
 	return createMp3(strtok(name, "\n"), strtok(title, "\n"), year, runtime, next, prev);
 }
 
 void append(mp3** head, mp3** tail){
 	mp3* new = createMp3FromInput();
 	if(*head == NULL){
-    *head = new;
+    		*head = new;
 		*tail = new;
 	}
 	else{
-    mp3* lastnext = *tail;
+    		mp3* lastnext = *tail;
 		lastnext->next = new;
 		new->prev = *tail;
 		*tail = new;
@@ -132,111 +132,101 @@ void append(mp3** head, mp3** tail){
 }
 
 int compareMp3(mp3* mp3_1, mp3* mp3_2){
-  return(mp3_1->name == mp3_2->name && mp3_1->title == mp3_2->title && mp3_1->year == mp3_2->year && mp3_1->runtime == mp3_2->runtime && mp3_1->next == mp3_2->next && mp3_1->prev == mp3_2->prev);
+	return(mp3_1->name == mp3_2->name && mp3_1->title == mp3_2->title && mp3_1->year == mp3_2->year && mp3_1->runtime == mp3_2->runtime && mp3_1->next == mp3_2->next && mp3_1->prev == mp3_2->prev);
 }
 
 void deleteMp3(mp3* del){
-  free(del->name);
-  free(del->title);
-  free(del);
+	free(del->name);
+  	free(del->title);
+  	free(del);
 }
 
 void deleteMp3FromList(mp3** head, mp3** tail, char* del_name){
-  mp3* current = *head;
+	mp3* current = *head;
 	while(current != NULL){
 		mp3* del_mp3 = NULL;
-    if(strcmp(current->name,del_name) == 0){
-      del_mp3 = current;
-      if(*head == del_mp3){
-        if(current->next != NULL){
-          *head = current->next;
-          current->next->prev = NULL;
-        }
-        else{
-          *head = NULL;
-          *tail = NULL;
-        }
-      }
-      else if(*tail == del_mp3){
-        if(current->prev != NULL){
-          *tail = current->prev;
-          current->prev->next = NULL;
-        }
-        else{
-          *tail = NULL;
-          *head = NULL;
-        }
-      }
-      else{
-        current->prev->next = current->next;
-        current->next->prev = current->prev;
-      }
-      current = del_mp3->next;
-      deleteMp3(del_mp3);
-    }
-    else{
-		  current = current->next;
-    }
+    		if(strcmp(current->name,del_name) == 0){
+      			del_mp3 = current;
+      			if(*head == del_mp3){
+        			if(current->next != NULL){
+          				*head = current->next;
+          				current->next->prev = NULL;
+        			}
+        			else{
+          				*head = NULL;
+          				*tail = NULL;
+        			}
+      			}
+      			else if(*tail == del_mp3){
+				if(current->prev != NULL){
+        				*tail = current->prev;
+          				current->prev->next = NULL;
+        			}
+        			else{
+          				*tail = NULL;
+          				*head = NULL;
+        			}
+      			}
+      			else{
+				current->prev->next = current->next;
+        			current->next->prev = current->prev;
+      			}
+      			current = del_mp3->next;
+      			deleteMp3(del_mp3);
+    		}
+    		else{
+			current = current->next;
+    		}
 	}
 }
 
 void deleteProgram(mp3** head, mp3** tail){
-  printf("Freeing up ALL memory\n");
+	printf("Freeing up ALL memory\n");
 	mp3* current = *head;
 	while(current != NULL){
+		mp3* tmp = current->next;
 		deleteMp3(current);
-		current = current->next;
-  }
-	free(current);
-//	free(head);
-//	free(tail);
+		current = tmp;
+  	}
 }
 
 int main(){
-	mp3 *head = malloc(sizeof(mp3));
-  mp3 *tail = malloc(sizeof(mp3));
-  head = NULL;
-	tail = NULL;
-	char* input = (char*)malloc(128*sizeof(char));
-  char* buffer = (char*)malloc(128*sizeof(char));
-  printHelp();
-  do{
-    scanf("%s", input);
-    fgets(buffer, 128, stdin) ;
-    input = strtok(input,"\n");
-    if(strcmp(input, "Add") == 0){
+  	mp3* head = NULL;
+	mp3* tail = NULL;
+	char* input = (char*)malloc(256*sizeof(char));
+  	char* buffer = (char*)malloc(256*sizeof(char));
+	printHelp();
+  	do{
+    		scanf("%s", input);
+    		fgets(buffer, 256, stdin);
+    		input = strtok(input,"\n");
+    		if(strcmp(input, "Add") == 0){
 			append(&head, &tail);
-      printf(">>Mp3 Added!\n");
+      			printf(">>Mp3 Added!, Awaiting Next Command\n");
 		}
 		else if(strcmp(input, "PrintB") == 0){
 			printMp3ListFromBeginning(&head);
-      printf(">>List Printed!\n");
+     			printf(">>List Printed!, Awaiting Next Command\n");
 		}
-    else if(strcmp(input, "PrintE") == 0){
+    		else if(strcmp(input, "PrintE") == 0){
 			printMp3ListFromEnd(&tail);
-      printf(">>List Printed!\n");
+      			printf(">>List Printed!, Awaiting Next Command\n");
 		}
-    else if(strcmp(input, "Delete") == 0){
-      printf(">>Enter the Name of the Artist to Delete\n");
-      fgets(input, 128, stdin);
-      deleteMp3FromList(&head, &tail, strtok(input,"\n"));
-      printf(">>Mp3(s) Deleted\n");
-    }
-    else if(strcmp(input, "Help") == 0){
-      printHelp();
-    }
-    else{
-      printf(">>Invalid Command, type \"Help\" to get a list of Commands\n");
-    }
-  }while((strcmp(strtok(input, "\n"), "Exit") != 0));
-  deleteProgram(&head,&tail);
-  	printf("Freeing Head");
-	free(head);
-	printf("Freeing Tail");
-	free(tail);
-	printf("Freeing input");
+    		else if(strcmp(input, "Delete") == 0){
+      			printf(">>Enter the Name of the Artist to Delete\n");
+      			fgets(input, 256, stdin);
+      			deleteMp3FromList(&head, &tail, strtok(input,"\n"));
+      			printf(">>Mp3(s) Deleted, Awaiting Next Command\n");
+    		}
+    		else if(strcmp(input, "Help") == 0){
+      			printHelp();
+    		}
+    		else if(strcmp(input, "Exit") != 0){
+      			printf(">>Invalid Command, type \"Help\" to get a list of Commands\n");
+    		}
+  	}while((strcmp(strtok(input, "\n"), "Exit") != 0));
+  	deleteProgram(&head,&tail);
 	free(input);
-	printf("Freeing buffer");
 	free(buffer);
 	return 0;
 }
