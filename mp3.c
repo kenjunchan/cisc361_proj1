@@ -13,10 +13,16 @@ typedef struct mp3 {
 	struct mp3* prev;
 }mp3;
 
+//printHelp - prints out a list of commands
+//params - none
+//return - none
 void printHelp(){
 	printf("LIST OF COMMANDS AND THEIR DESCRIPTION (COMMAND - DESCRIPTION)\n\"Add\" - Adds an Mp3 to the end of the list\n\"PrintB\" - Prints the list from the beginning\n\"PrintE\" - Prints the list from the end\n\"Delete\" - Deletes all Mp3s from the list with the given Artist's name and frees up their memories\n\"Exit\" - Terminates the program and frees up all memory\n-------------------------------------------------------------------------------\n");
 }
 
+//isNumber - checks to see if a string is an integer
+//params - char*
+//return - 0 if it is not a integer, 1 if it is
 int isNumber(char* str){
 	for(int i = 0; i< strlen(str); i++){
     		if(!isdigit(str[i])){
@@ -26,6 +32,9 @@ int isNumber(char* str){
 	return 1;
 }
 
+//printMp3 - prints the mp3 structure
+//params - mp3*
+//return - none
 void printMp3(mp3* mp3){
 	printf("*********************************************** \n");
 	printf("Artist Name of Mp3: %s \n", mp3->name);
@@ -47,8 +56,9 @@ void printMp3(mp3* mp3){
   	printf("Memory Address of Mp3: %p \n", mp3);
 }
 
-
-
+//printMp3ListFromBeginning - prints the Mp3 List beginning from the head to the end
+//params - mp3**
+//return - none
 void printMp3ListFromBeginning(mp3** head){
 	printf(">>Start of List \n");
   	if(*head == NULL){
@@ -63,6 +73,9 @@ void printMp3ListFromBeginning(mp3** head){
   	}
 }
 
+//printMp3ListFromEnd - prints the Mp3 List beginning from the end to the head
+//params - mp3**
+//return - none
 void printMp3ListFromEnd(mp3** tail){
 	printf(">>End of List\n");
   	if(*tail == NULL){
@@ -76,6 +89,10 @@ void printMp3ListFromEnd(mp3** tail){
 	  	}
   	}
 }
+
+//createMp3 - creates an mp3*
+//params - char*, char*, int, int, mp3*, mp3*
+//return - mp3*
 mp3* createMp3(char* n, char* t, int y, int rt, mp3* nxt, mp3* prv){
 	mp3* returnMp3 = (mp3*)malloc(sizeof(mp3));
 	returnMp3->name = n;
@@ -87,6 +104,9 @@ mp3* createMp3(char* n, char* t, int y, int rt, mp3* nxt, mp3* prv){
 	return returnMp3;
 }	
 
+//createMp3FromInput - creates an Mp3 from the given input params that the user will be prompted to enter
+//params - none
+//return - mp3*
 mp3* createMp3FromInput(){
 	char* name = (char*)malloc(256*sizeof(char));
 	char* title = (char*)malloc(256*sizeof(char));
@@ -117,6 +137,9 @@ mp3* createMp3FromInput(){
 	return createMp3(strtok(name, "\n"), strtok(title, "\n"), year, runtime, next, prev);
 }
 
+//append - inserts an mp3 to the end of the list
+//params - mp3**, mp3**
+//return - none
 void append(mp3** head, mp3** tail){
 	mp3* new = createMp3FromInput();
 	if(*head == NULL){
@@ -131,16 +154,25 @@ void append(mp3** head, mp3** tail){
 	}
 }
 
+//compareMp3 - compares 2 mp3s to see if they are the same, content wise
+//params - mp3*, mp3*
+//return - int (0 if its the same, 1 if it is not)
 int compareMp3(mp3* mp3_1, mp3* mp3_2){
 	return(mp3_1->name == mp3_2->name && mp3_1->title == mp3_2->title && mp3_1->year == mp3_2->year && mp3_1->runtime == mp3_2->runtime && mp3_1->next == mp3_2->next && mp3_1->prev == mp3_2->prev);
 }
 
+//deleteMp3 - free's up the given mp3's allocated memory
+//params - mp3*
+//return - none
 void deleteMp3(mp3* del){
 	free(del->name);
   	free(del->title);
   	free(del);
 }
 
+//deleteMp3FromList - deletes all the mp3s in the list with the specified artist name
+//params - mp3**, mp3**, char*
+//return - none
 void deleteMp3FromList(mp3** head, mp3** tail, char* del_name){
 	mp3* current = *head;
 	while(current != NULL){
@@ -180,6 +212,9 @@ void deleteMp3FromList(mp3** head, mp3** tail, char* del_name){
 	}
 }
 
+//deleteProgram - it frees up the memory allocated associated with the Linked List
+//params - mp3**, mp3**
+//return - none
 void deleteProgram(mp3** head, mp3** tail){
 	printf("Freeing up ALL memory\n");
 	mp3* current = *head;
@@ -225,7 +260,8 @@ int main(){
       			printf(">>Invalid Command, type \"Help\" to get a list of Commands\n");
     		}
   	}while((strcmp(strtok(input, "\n"), "Exit") != 0));
-  	deleteProgram(&head,&tail);
+  	//free's up all the allocated memory
+	deleteProgram(&head,&tail);
 	free(input);
 	free(buffer);
 	return 0;
